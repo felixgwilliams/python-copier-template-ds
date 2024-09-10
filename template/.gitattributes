@@ -1,0 +1,3 @@
+*.ipynb filter=nbwipers
+*.ipynb diff=nbwipers
+uv.lock linguist-generated=true

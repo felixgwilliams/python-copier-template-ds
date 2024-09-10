@@ -1,0 +1,34 @@
+[project]
+name = "{{project_name}}"
+version = "0.0.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">={{python_version}}"
+dependencies = [
+    "ipykernel>=6.29.5",
+]
+
+[tool.ruff]
+line-length = 120
+extend-include = ["*.ipynb"]
+target-version = "py{{ python_version|replace('.', '') }}"
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["COM", "D", "ERA", "ISC001"]
+
+[tool.ruff.lint.isort]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.typos]
+files.extend-exclude = ["*.ipynb"]
+
+[tool.uv]
+dev-dependencies = [
+    "nbwipers>=0.4.0",
+    "ruff>=0.6.4",
+    "pytest>=8"
+]

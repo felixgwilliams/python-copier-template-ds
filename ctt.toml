@@ -1,0 +1,4 @@
+[defaults]
+project_name = "ctt-test"
+
+[output.".ctt/defaults"]
