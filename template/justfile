@@ -1,0 +1,27 @@
+default:
+  @just --list
+
+# setup for development
+setup: install git-setup
+
+# install the packages
+install:
+  {{if path_exists("uv.lock") != "true" {"uv sync --dev --all-extras --inexact"} else {"uv sync --dev --all-extras --locked --inexact"} }}
+
+# ensure code quality before git commit via pre-commit and nbwipers
+git-setup: install
+  uv run nbwipers install local
+  uv run pre-commit install --install-hooks
+
+# format and sort imports
+format:
+  uv run ruff check --fix --select=I001 .
+  uv run ruff format .
+
+# autofix with ruff
+autofix:
+  uv run ruff --fix --show-fixes .
+
+# lint with ruff
+lint:
+  uv run ruff check --output-format=full .
