@@ -2,3 +2,6 @@
 project_name = "ctt-test"
 
 [output.".ctt/defaults"]
+
+[output.".ctt/ga"]
+github_actions = true
