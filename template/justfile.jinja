@@ -1,5 +1,6 @@
 module_name := "{{module_name}}"
 
+# list commands
 default:
   @just --list
 
@@ -8,7 +9,7 @@ setup: install git-setup
 
 # install the packages
 install:
-  {% raw %}{{if path_exists("uv.lock") != "true" {"uv sync --dev --all-extras --inexact"} else {"uv sync --dev --all-extras --locked --inexact"} }}{% endraw %}
+  {% raw %}{{if path_exists("uv.lock") != "true" {"uv sync --all-groups --all-extras --inexact"} else {"uv sync --dev --all-extras --locked --inexact"} }}{% endraw %}
 
 # ensure code quality before git commit via pre-commit and nbwipers
 git-setup: install
@@ -34,8 +35,12 @@ lint:
 
 # update packages and uv lock file
 update:
-  uv sync -U --dev --all-extras --inexact
+  uv sync -U --all-groups --all-extras --inexact
 
 # update pre-commit file
 pc-update:
   uvx pre-commit-update
+
+# check for typos
+typos:
+  uv run typos .

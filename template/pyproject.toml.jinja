@@ -29,10 +29,16 @@ convention = "google"
 files.extend-exclude = ["*.ipynb"]
 
 [tool.uv]
-dev-dependencies = [
+default-groups = ["dev", "lint"]
+
+[dependency-groups]
+dev = [
     "nbwipers>=0.6.0",
-    "ruff>=0.9.2",
     "pytest>=8",
     "pytest-cov>=6.0.0",
     "pre-commit>=4.1.0",
+    "typos>=1.29.4",
+]
+lint = [
+    "ruff>=0.9.3",
 ]
