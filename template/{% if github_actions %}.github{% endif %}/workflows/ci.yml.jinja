@@ -27,7 +27,7 @@ jobs:
         with:
           python-version-file: ".python-version"
       - name: Install the project
-        run: uv sync --only-group lint
+        run: uv sync --only-group lint --frozen
       - name: check format
         run: uv run ruff format --check --diff .
       - name: check lints
@@ -43,7 +43,7 @@ jobs:
         with:
           python-version-file: ".python-version"
       - name: Install the project
-        run: uv sync --all-extras --all-groups
+        run: uv sync --all-extras --all-groups --frozen
       - name: unit tests
         run: |
           set -o pipefail && \
