@@ -51,6 +51,18 @@ By default, all lints are enabled except
 - [`COM`](https://docs.astral.sh/ruff/rules/#flake8-commas-com) Enforces trailing commas
 - [`ERA`](https://docs.astral.sh/ruff/rules/#eradicate-era) Disallows commented-out code
 - [`ISC001`](https://docs.astral.sh/ruff/rules/single-line-implicit-string-concatenation/#flake8-executable-exe) (conflicts with the formatter).
+- [`PTH`](https://docs.astral.sh/ruff/rules/#flake8-use-pathlib-pth) Requires use of pathlib
+- [`TRY003`](https://docs.astral.sh/ruff/rules/raise-vanilla-args/) disallow exception messages as string literals
+- [`RUF002`](https://docs.astral.sh/ruff/rules/ambiguous-unicode-character-docstring/) disallow ambiguous characters in docstrings
+- [`RUF003`](https://docs.astral.sh/ruff/rules/RUF003/) disallow ambiguous characters in docstrings
+- [`PLC0415`](https://docs.astral.sh/ruff/rules/PLC0415/) disallow import outside top level
+- [`PD`](https://docs.astral.sh/ruff/rules/#pandas-vet-pd) opinionated linting for `pandas` code
+
+Out of the `PD` rules, the following are reenabled:
+
+- [`PD002`](https://docs.astral.sh/ruff/rules/PD002/) disallow `inplace=True`
+- [`PD007`](https://docs.astral.sh/ruff/rules/PD002/) disallow deprecated `.ix`
+- [`PD101`](https://docs.astral.sh/ruff/rules/PD002/) disallow `Series.nunique()` for checking a series is constant
 
 In addition, the following rules are only enforced for module code as they are inappropriate or too strict for unit tests and notebooks:
 
@@ -59,6 +71,10 @@ In addition, the following rules are only enforced for module code as they are i
 - [`S101`](https://docs.astral.sh/ruff/rules/assert/) Disallows use of `assert`
 - [`PLR2004`](https://docs.astral.sh/ruff/rules/magic-value-comparison/) Disallows "magic" values in comparisons
 - [`T20`](https://docs.astral.sh/ruff/rules/#flake8-print-t20) Disallows print statements
+- [`EM`](https://docs.astral.sh/ruff/rules/#flake8-errmsg-em) Linting for error messages
+- [`PLR0913`](https://docs.astral.sh/ruff/rules/PLR0913) Disallow too many arguments
+- [`FBT003`](https://docs.astral.sh/ruff/rules/FBT003) Disallow boolean positional values in call
+- [`INP001`](https://docs.astral.sh/ruff/rules/INP001) Disallow implicit namespace packages
 
 The target line length is 120 and the docstring convention is google.
 
