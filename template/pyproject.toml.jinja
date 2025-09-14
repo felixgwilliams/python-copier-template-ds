@@ -1,11 +1,40 @@
 [project]
 name = "{{project_name}}"
-version = "0.0.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">={{python_version}}"
 dependencies = [
-    "ipykernel>=6.29.5",
+  "ipykernel>=6.29.5",
+]
+dynamic = ["version"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.coverage.report]
+exclude_also = [
+  "def __repr__",
+  "if self.debug:",
+  "if settings.DEBUG",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if 0:",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+  'class .*\bProtocol\):',
+  '@(abc\.)?abstractmethod',
+]
+
+[tool.hatch.version]
+path = "{{module_name}}/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "*.ipynb",
+  "data/",
+  ".venv",
+  "uv.lock",
 ]
 
 [tool.ruff]
@@ -14,10 +43,37 @@ target-version = "py{{ python_version|replace('.', '') }}"
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["COM", "ERA", "ISC001"]
+ignore = [
+  "COM",  # trailing commas are not needed
+  "ERA",  # allow commentted code
+  "ISC001",  # conflicts with formatter
+  "PTH",  # allow opening files without pathlib
+  "TRY003",  # allow exception messages as string literals
+  "TD",  # allow FIXME messages
+  "FIX",  # allow FIXME messages
+  "RUF002",  # allow ambiguous characters in docstrings
+  "RUF003",  # allow ambiguous characters in comments
+  "PLC0415",  # allow import outside top level
+  "PD",  # most PD rules are not helpful
+]
+extend-select = [
+  "PD002",  # pandas-use-of-inplace-argument
+  "PD007",  # pandas-use-of-dot-ix
+  "PD101",  # pandas-nunique-constant-series-check
+]
 
 [tool.ruff.lint.per-file-ignores]
-"!{{module_name}}/**.py" = ["ANN", "D", "S101", "PLR2004", "T20"]
+"!{{module_name}}/**.py" = [
+  "ANN",
+  "D",
+  "S101",
+  "PLR2004",
+  "T20",
+  "EM",
+  "PLR0913",
+  "FBT003",
+  "INP001",
+]
 
 [tool.ruff.lint.isort]
 required-imports = ["from __future__ import annotations"]
@@ -26,19 +82,22 @@ required-imports = ["from __future__ import annotations"]
 convention = "google"
 
 [tool.typos]
-files.extend-exclude = ["*.ipynb"]
+files.extend-exclude = ["*.ipynb", ".gitignore"]
 
 [tool.uv]
 default-groups = ["dev", "lint"]
 
+[tool.nbwipers]
+strip-kernel-info = true
+
 [dependency-groups]
 dev = [
-    "nbwipers>=0.6.1",
-    "pytest>=8",
-    "pytest-cov>=6.0.0",
-    "pre-commit>=4.1.0",
-    "typos>=1.29.4",
+  "nbwipers>=0.6.1",
+  "pytest>=8",
+  "pytest-cov>=7.0.0",
+  "pre-commit>=4.3.0",
+  "typos>=1.36.2",
 ]
 lint = [
-    "ruff>=0.9.3",
+  "ruff>=0.13.0",
 ]
